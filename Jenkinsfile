@@ -8,7 +8,7 @@ pipeline {
                 dir('forDocker') {
                     checkout changelog: false,
                     poll: true,
-                    scm: [$class: 'GitSCM', branches: [[name: '*/Master']],
+                    scm: [$class: 'GitSCM', branches: [[name: '*/master']],
                     doGenerateSubmoduleConfigurations: false,
                     extensions: [],
                     submoduleCfg: [],
