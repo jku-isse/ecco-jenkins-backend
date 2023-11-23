@@ -6,7 +6,7 @@ pipeline {
         stage("Pull") {
             steps {
                 dir('forDocker') {
-                    checkout changelog: true,
+                    checkout changelog: false,
                     poll: true,
                     scm: [$class: 'GitSCM', branches: [[name: '*/Master']],
                     doGenerateSubmoduleConfigurations: false,
