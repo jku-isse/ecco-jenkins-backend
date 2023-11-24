@@ -6,7 +6,7 @@ pipeline {
         stage("Pull") {
             steps {
                 dir('forDocker') {
-                    checkout changelog: false,
+                    checkout changelog: true,
                     poll: true,
                     scm: [$class: 'GitSCM', branches: [[name: '*/master']],
                     doGenerateSubmoduleConfigurations: false,
@@ -44,6 +44,33 @@ pipeline {
                 }
             }
         }
-
+        
+        stage("Publish") {
+            steps {
+                input "Do you want to deploy?"
+                script {
+                    withDockerRegistry([credentialsId: "DockerHubCredentials", url:""]) {
+                        sh "docker tag ecco-backend:${env.BUILD_ID} bergthalerjku/ecco_backend:${env.BUILD_ID}"
+                        sh "docker push bergthalerjku/ecco_backend:${env.BUILD_ID}"
+                        
+                        sh "docker tag ecco-backend:${env.BUILD_ID} bergthalerjku/ecco_backend:latest"
+                        sh "docker push bergthalerjku/ecco_backend:latest"
+                    }
+                }
+            }
+        }
+    }
+    post {
+        always {
+            archiveArtifacts artifacts: 'forDocker/rest/build/reports/test/*', fingerprint: true
+            publishHTML (target : [
+                allowMissing: false,
+                alwaysLinkToLastBuild: true,
+                keepAll: true,
+                reportDir: 'forDocker/rest/build/reports/test',
+                reportFiles: '*.html',
+                reportName: 'Report',
+                reportTitles: ''])
+        }
     }
 }
