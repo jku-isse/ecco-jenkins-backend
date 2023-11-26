@@ -1,7 +1,5 @@
 FROM gradle:8.3-jdk20
- 
-RUN apt-get update && \
-    apt-get install git
+
 COPY ./forDocker/ /home/gradle
 RUN chmod -R 777 /home/gradle/
     
