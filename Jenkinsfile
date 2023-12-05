@@ -29,7 +29,7 @@ pipeline {
             steps {
                 script {
                     dockerImage.inside('-v $WORKSPACE/serverRepositories:/media/serverRepositories'){
-                        sh 'gradle -g gradle-user-home -b forDocker/rest/build.gradle build'
+                        sh 'gradle -g gradle-user-home -b /home/gradle/rest/build.gradle build'
                     }
                 }
             }
@@ -39,7 +39,7 @@ pipeline {
             steps {
                 script {
                     dockerImage.inside('-v $WORKSPACE/serverRepositories:/media/serverRepositories'){
-                      sh 'gradle -g gradle-user-home -b forDocker/rest/build.gradle test'
+                      sh 'gradle -g gradle-user-home -b  /home/gradle/rest/build.gradle test'
                     }
                 }
             }
