@@ -20,6 +20,7 @@ pipeline {
         stage("Create Docker") {
             steps {
                 script {
+                    sh 'chmod -R 777 forDocker/'
                     dockerImage = docker.build("ecco-backend:${env.BUILD_ID}")
                 }   
             }
