@@ -63,7 +63,7 @@ pipeline {
     }
     post {
         always {
-            archiveArtifacts artifacts: 'forDocker/rest/build/reports/test/*', fingerprint: true
+            archiveArtifacts artifacts: 'forDocker/rest/build/reports/test/*', fingerprint: false
             publishHTML (target : [
                 allowMissing: false,
                 alwaysLinkToLastBuild: true,
