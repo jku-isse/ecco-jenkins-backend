@@ -68,7 +68,7 @@ pipeline {
                 allowMissing: false,
                 alwaysLinkToLastBuild: true,
                 keepAll: true,
-                reportDir: 'forDocker/rest/build/reports/test',
+                reportDir: '/home/gradle/rest/build/reports/test',
                 reportFiles: '*.html',
                 reportName: 'Report',
                 reportTitles: ''])
