@@ -39,10 +39,20 @@ pipeline {
         stage("Test") {
             steps {
                 script {
-                    dockerImage.inside('-v $WORKSPACE/serverRepositories:/media/serverRepositories'){
+                    dockerImage.inside('-v $WORKSPACE/serverRepositories:/media/serverRepositories ' + 
+                                        '-v $WORKSPACE/export:/home/gradle/export '){
                       sh 'gradle -g gradle-user-home -b  /home/gradle/rest/build.gradle test'
+                      sh 'cp -r /home/gradle/rest/build/reports/test/ /home/gradle/export/'
                     }
                 }
+                publishHTML (target : [
+                    allowMissing: false,
+                    alwaysLinkToLastBuild: true,
+                    keepAll: true,
+                    reportDir: 'export/test',
+                    reportFiles: '*.html',
+                    reportName: 'Report',
+                    reportTitles: ''])
             }
         }
         
@@ -63,15 +73,7 @@ pipeline {
     }
     post {
         always {
-            archiveArtifacts artifacts: 'forDocker/rest/build/reports/test/*', fingerprint: false
-            publishHTML (target : [
-                allowMissing: false,
-                alwaysLinkToLastBuild: true,
-                keepAll: true,
-                reportDir: '/home/gradle/rest/build/reports/test',
-                reportFiles: '*.html',
-                reportName: 'Report',
-                reportTitles: ''])
+            archiveArtifacts artifacts: 'export/test/*', fingerprint: false
         }
     }
 }
