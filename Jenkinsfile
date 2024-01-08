@@ -12,7 +12,7 @@ pipeline {
                     doGenerateSubmoduleConfigurations: false,
                     extensions: [],
                     submoduleCfg: [],
-                    userRemoteConfigs: [[credentialsId: 'git', url: 'https://github.com/Dorkat0/ecco.git']]]
+                    userRemoteConfigs: [[credentialsId: 'git', url: 'https://github.com/jku-isse/ecco.git']]]
                 }
             }
         }
