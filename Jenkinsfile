@@ -61,11 +61,11 @@ pipeline {
                 input "Do you want to deploy?"
                 script {
                     withDockerRegistry([credentialsId: "DockerHubCredentials", url:""]) {
-                        sh "docker tag ecco-backend:${env.BUILD_ID} bergthalerjku/ecco_backend:${env.BUILD_ID}"
-                        sh "docker push bergthalerjku/ecco_backend:${env.BUILD_ID}"
+                        sh "docker tag ecco-backend:${env.BUILD_ID} issejku/ecco_backend:${env.BUILD_ID}"
+                        sh "docker push issejku/ecco_backend:${env.BUILD_ID}"
                         
-                        sh "docker tag ecco-backend:${env.BUILD_ID} bergthalerjku/ecco_backend:latest"
-                        sh "docker push bergthalerjku/ecco_backend:latest"
+                        sh "docker tag ecco-backend:${env.BUILD_ID} issejku/ecco_backend:latest"
+                        sh "docker push issejku/ecco_backend:latest"
                     }
                 }
             }
