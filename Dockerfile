@@ -1,4 +1,4 @@
-FROM gradle:8.3-jdk20
+FROM gradle:8.5.0-jdk21
 
 COPY ./forDocker/ /home/gradle
 RUN chmod -R 777 /home/gradle/
